@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
+  const handleLogout = () => {
+    logout(); // Gọi hàm logout khi người dùng nhấn nút đăng xuất
+  };
   return (
     <div className="navbar">
       <div className="navContainer">
@@ -13,7 +16,13 @@ const Navbar = () => {
           <span className="logo">Booking App</span>
         </Link>
         {user ? (
-          user.username
+          <>
+            <span>{user.username}</span>
+            <button className="navButton" onClick={handleLogout}>
+              Logout
+            </button>{" "}
+            {/* Thêm nút Logout */}
+          </>
         ) : (
           <div className="navItems">
             <Link to="/login">
