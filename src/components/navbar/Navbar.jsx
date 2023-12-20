@@ -28,7 +28,9 @@ const Navbar = () => {
             <Link to="/login">
               <button className="navButton">Login</button>
             </Link>
-            <button className="navButton">Register</button>
+            <Link to="/register">
+              <button className="navButton">Register</button>
+            </Link>
           </div>
         )}
       </div>

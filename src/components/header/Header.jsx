@@ -50,8 +50,8 @@ const Header = ({ type }) => {
   const { user } = useContext(AuthContext);
 
   const handleSearch = () => {
-    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
-    navigate("/hotels", { state: { destination, dates, options } });
+      dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
+      navigate("/hotels", { state: { destination, dates, options } });
   };
 
   return (
