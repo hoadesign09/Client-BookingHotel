@@ -62,7 +62,7 @@ const Reserve = ({ setOpen, hotelId }) => {
         })
       );
       setOpen(false);
-      navigate("/");
+      navigate("/checkout");
     } catch (err) {}
   };
   return (

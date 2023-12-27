@@ -22,10 +22,14 @@ const Hotel = () => {
   const id = location.pathname.split("/")[2];
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const { data, loading, error } = useFetch(`/hotels/find/${id}`);
 
-  const {dates, options} = useContext(SearchContext)
+  const { dates, options } = useContext(SearchContext);
+  const { user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
@@ -53,6 +57,13 @@ const Hotel = () => {
     setSlideNumber(newSlideNumber);
   };
 
+  const handleClick = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <div>
       <Navbar />
@@ -125,9 +136,10 @@ const Hotel = () => {
                   excellent location score of 9.8!
                 </span>
                 <h2>
-                  <b>${days * data.cheapestPrice * options.room}</b> ({days} nights)
+                  <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
+                  nights)
                 </h2>
-                <button>Reserve or Book Now!</button>
+                <button onClick={handleClick}>Reserve or Book Now!</button>
               </div>
             </div>
           </div>
@@ -135,6 +147,7 @@ const Hotel = () => {
           <Footer />
         </div>
       )}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
     </div>
   );
 };

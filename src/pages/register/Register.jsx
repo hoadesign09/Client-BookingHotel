@@ -1,10 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import "./register.css"
 const Signup = () => {
   const { loading, error, dispatch } = useContext(AuthContext);
+  const [successMessage, setSuccessMessage] = useState("");
+
   const navigate = useNavigate();
 
   const [newUser, setNewUser] = useState({
@@ -27,15 +29,21 @@ const Signup = () => {
     try {
       const res = await axios.post("/auth/register", newUser);
       dispatch({ type: "REGISTER_SUCCESS", payload: res.data.details });
-      navigate("/login");
+      setSuccessMessage("Registration successful!");
     } catch (err) {
       dispatch({ type: "REGISTER_FAILURE", payload: err.response.data });
     }
   };
-
+  useEffect(() => {
+    if (successMessage) {
+      alert(successMessage);
+      navigate("/login");
+    }
+  }, [successMessage, navigate]);
   return (
     <div className="signup">
       <div className="sContainer">
+        <h3>Register Account</h3>
         {/* Form đăng ký tài khoản */}
         <input
           type="text"
@@ -83,7 +91,10 @@ const Signup = () => {
         <button disabled={loading} onClick={handleClick} className="sButton">
           Sign Up
         </button>
-        {error && <span>{error.message}</span>}
+        <Link to="/login" style={{textDecoration: "none"}}>
+          <p>You already have an account? Login</p>
+        </Link>
+        {error && <span className="sSpan">{error.message}</span>}
       </div>
     </div>
   );

@@ -28,3 +28,7 @@
   cursor: pointer;
   color: #003580;
 }
+.user-nav{
+  text-decoration: none;
+  color: white
+}

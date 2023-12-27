@@ -1,0 +1,13 @@
+.sidebar {
+  background-color: white;
+}
+ul{
+  list-style: none;
+}
+.si-client{
+  padding-bottom: 10px;
+}
+.span-client{
+  color: black;
+  font-size: 16px;
+}

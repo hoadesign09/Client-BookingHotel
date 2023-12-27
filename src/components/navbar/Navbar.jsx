@@ -17,11 +17,14 @@ const Navbar = () => {
         </Link>
         {user ? (
           <>
-            <span>{user.username}</span>
-            <button className="navButton" onClick={handleLogout}>
-              Logout
-            </button>{" "}
-            {/* Thêm nút Logout */}
+            <div className="navUser">
+              <Link to="/account">
+                <span className="user-nav">Hello, {user.username}</span>
+              </Link>
+              <button className="navButton" onClick={handleLogout}>
+                Logout
+              </button>{" "}
+            </div>
           </>
         ) : (
           <div className="navItems">
